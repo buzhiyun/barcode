@@ -1,0 +1,38 @@
+
+# 忽略版本控制相关文件
+.git
+.gitignore
+.github/
+
+# 忽略环境变量文件
+.env
+.env.local
+.env.*.local
+
+# 忽略日志文件
+*.log
+logs/
+
+# 忽略临时文件和编辑器文件
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+# 忽略测试相关文件
+tests/
+test_*.py
+*_test.py
+
+# 忽略文档
+docs/
+README.md
+
+# 忽略构建产物
+dist/
+build/
+*.egg-info/
+
+# 忽略 Docker 相关文件（避免递归构建）
+.dockerignore
+Dockerfile*
