@@ -88,7 +88,7 @@ class BarcodeService:
             pil_image = BarcodeService.decode_base64_image(image_content)
             return BarcodeService.identify_barcodes_from_image(pil_image)
         except Exception as e:
-            raise ValueError(f"条码识别失败: {str(e)}")
+            raise ValueError(f"条码识别失败: {str(e)} , {image_content}")
 
 
 
@@ -112,8 +112,8 @@ class BarcodeService:
             image = Image.open(io.BytesIO(response.content))
             return BarcodeService.identify_barcodes_from_image(image)
 
-        except:
-            print(f"无法获取图片: {image_url}", )
+        except Exception as e:
+            print(f"无法解析图片: {image_url} , {str(e)}")
             return []
 
 
