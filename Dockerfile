@@ -30,7 +30,8 @@ FROM python:3.12-slim
 # 设置环境变量
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    UV_PROJECT_ENVIRONMENT=/app/.venv
+    UV_PROJECT_ENVIRONMENT=/app/.venv \
+    WORKER_NUM=8
 
 # 安装运行时依赖
 RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources && \
@@ -70,4 +71,4 @@ USER appuser
 EXPOSE 8000
 
 # 启动命令
-CMD ["uv", "run", "uvicorn", "barcode.main:app","--workers", "8","--host","0.0.0.0"]
+CMD uv run uvicorn barcode.main:app --workers $WORKER_NUM --host 0.0.0.0
