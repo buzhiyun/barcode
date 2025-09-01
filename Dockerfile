@@ -39,7 +39,7 @@ RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debia
     # libgl1-mesa-glx \
     # libglx-mesa0 \
     libgl1 \
-    libglib2.0-0 \
+    # libglib2.0-0 \
     libsm6 \
     # libxext6 \
     libzbar-dev \

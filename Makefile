@@ -12,13 +12,14 @@ help:
 
 # 变量定义
 TAG ?= latest
+REPO ?= buzhiyun
 
 ifeq ($(TAG),master)
 	TAG := latest
 endif
 
 PROJECT_NAME = barcode
-DOCKER_IMAGE = $(PROJECT_NAME):$(TAG)
+DOCKER_IMAGE = $(REPO)/$(PROJECT_NAME):$(TAG)
 DOCKER_FILE = Dockerfile
 
 # 安装项目依赖
@@ -65,12 +66,7 @@ build-docker:
 
 # 推送Docker镜像到仓库（需要先设置DOCKER_REGISTRY）
 push-docker:
-	@if [ -n "$(DOCKER_REGISTRY)" ]; then \
-		docker tag $(DOCKER_IMAGE) $(DOCKER_REGISTRY)/$(DOCKER_IMAGE) ; \
-		docker push $(DOCKER_REGISTRY)/$(DOCKER_IMAGE) ; \
-	else \
-		echo "请设置DOCKER_REGISTRY环境变量"; \
-	fi
+	docker push $(DOCKER_IMAGE) 
 
 # 显示项目信息
 info:
