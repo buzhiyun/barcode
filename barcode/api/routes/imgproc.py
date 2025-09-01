@@ -60,21 +60,22 @@ async def identify_barcode(
                
         if image_url:
             barcodes = barcode_service.identify_barcodes_from_url(image_url)
-            if barcodes:
+            if len(barcodes)>0:
                 # 获取第一个条码的数据作为文本
                 text_content = barcodes[0].barCodeText
                 return Response(content=text_content, media_type="text/plain")
-
+            
         if image_content:
             barcodes = barcode_service.identify_barcodes_from_base64str(image_content)
-            if barcodes:
+            if len(barcodes)>0:
                 # 返回第一个条码的数据作为文本
                 text_content = barcodes[0].barCodeText
+                print("barcodes[0]:", barcodes[0])
                 return Response(content=text_content, media_type="text/plain")
 
-        else:
-            # 没有找到条码时返回空文本
-            return Response(content="", media_type="text/plain")
+
+        # 没有找到条码时返回空文本
+        return Response(content="", media_type="text/plain")
 
 
     except ValueError as e:
@@ -123,19 +124,18 @@ async def location_barcode(request: Request):
             image_url = json.loads(septnet_document).get("image_url",None)
         if image_url:
             barcodes = barcode_service.identify_barcodes_from_url(image_url)
-            if barcodes:
+            if len(barcodes)>0:
                 # 获取第一个条码的数据作为文本
                 return barcodes[0].model_dump(exclude_none=True)
 
         if image_content:
             barcodes = barcode_service.identify_barcodes_from_base64str(image_content)
-            if barcodes:
+            if len(barcodes)>0:
                 # 返回第一个条码的数据作为文本
                 return barcodes[0].model_dump(exclude_none=True)
 
-        else:
-            # 没有找到条码时返回空文本
-            return Response(content="", media_type="text/plain")        
+        # 没有找到条码时返回空文本
+        return Response(content='{"barCodeText":"","location":None}', media_type="application/json")        
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
@@ -196,7 +196,7 @@ async def location_barcodes(request: Request):
 
         else:
             # 没有找到条码时返回空文本
-            return Response(content="", media_type="text/plain")        
+            return Response(content='[]', media_type="application/json")         
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
