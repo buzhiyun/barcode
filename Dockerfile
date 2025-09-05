@@ -40,12 +40,12 @@ RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debia
     apt-get install -y --no-install-recommends \
     # libgl1-mesa-glx \
     # libglx-mesa0 \
-    libgl1 \
+    # libgl1 \
     # libglib2.0-0 \
-    libsm6 \
+    # libsm6 \
     # libxext6 \
     libzbar-dev \
-    libxrender-dev \
+    # libxrender-dev \
     # libgomp1 \
     libjpeg62-turbo-dev \
     # zlib1g-dev \

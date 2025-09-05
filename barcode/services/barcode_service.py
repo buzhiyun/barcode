@@ -3,8 +3,8 @@ import base64
 import io
 from typing import List
 from PIL import Image
-import cv2
-import numpy as np
+# import cv2
+# import numpy as np
 from pyzbar import pyzbar
 from barcode.models.barcode import BarcodeInfo
 import requests
@@ -38,10 +38,10 @@ class BarcodeService:
         """
         try:
             # 转换为OpenCV格式
-            opencv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+            # opencv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
             
             # 使用pyzbar识别条码
-            decoded_objects = pyzbar.decode(opencv_image)
+            decoded_objects = pyzbar.decode(image)
             
             barcodes = []
             for obj in decoded_objects:
